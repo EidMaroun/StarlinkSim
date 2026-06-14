@@ -16,3 +16,21 @@ sat = satellite(sc, "SUBSET.tle");
 viewer = satelliteScenarioViewer(sc);
 show(sat);
 groundTrack(sat);
+
+figure;
+plot(time, squeeze(position(1,:,1)));
+hold on;
+plot(time, squeeze(position(2,:,1)));
+plot(time, squeeze(position(3,:,1)));
+legend('x','y','z');
+title('Satellite 1 Position');
+exportgraphics(gcf, 'results/taskA/position_sat1.png', 'Resolution', 300);
+
+figure;
+plot(time, squeeze(velocity(1,:,1)));
+hold on;
+plot(time, squeeze(velocity(2,:,1)));
+plot(time, squeeze(velocity(3,:,1)));
+legend('vx','vy','vz');
+title('Satellite 1 Velocity');
+exportgraphics(gcf, 'results/taskA/velocity_sat1.png', 'Resolution', 300);
