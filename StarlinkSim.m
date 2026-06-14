@@ -34,3 +34,27 @@ plot(time, squeeze(velocity(3,:,1)));
 legend('vx','vy','vz');
 title('Satellite 1 Velocity');
 exportgraphics(gcf, 'results/taskA/velocity_sat1.png', 'Resolution', 300);
+
+
+%% Task B: Receiver and visible satellites
+
+rxLat = 33.8938;
+rxLon = 35.5018;
+rxAlt = 0;
+
+elevationMask = 10;   % degrees
+
+rx = groundStation(sc, ...
+    rxLat, rxLon, ...
+    "Altitude", rxAlt, ...
+    "MinElevationAngle", elevationMask, ...
+    "Name", "Receiver");
+
+ac = access(sat, rx);
+ac.LineWidth = 2;
+
+intervals = accessIntervals(ac);
+disp(intervals);
+writetable(intervals, 'results/taskB/satellite_intervals.csv');
+
+
