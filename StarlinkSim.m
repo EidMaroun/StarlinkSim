@@ -99,6 +99,25 @@ for k = 1:numSat
     end
 end
 
+% Apply visibility mask from Task B
+for k = 1:numSat
+    satName = string(sat(k).Name);
+
+    rows = strcmp(string(intervals.Source), satName);
+
+    visibleTimes = false(numTime,1);
+
+    for j = find(rows)'
+        visibleTimes = visibleTimes | ...
+            (time' >= intervals.StartTime(j) & time' <= intervals.EndTime(j));
+    end
+
+    range(~visibleTimes,k) = NaN;
+    pseudorange(~visibleTimes,k) = NaN;
+    doppler(~visibleTimes,k) = NaN;
+    rangeRate(~visibleTimes,k) = NaN;
+end
+
 k = 1;
 
 figure;
